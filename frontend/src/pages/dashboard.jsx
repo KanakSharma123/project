@@ -16,6 +16,7 @@ const Dashboard = () => {
     risk_level: "Medium",
     estimated_roi: "24%",
     recommendation: "Your business insights will appear here.",
+    ai_insights: "",
   });
 
   const handleChange = (e) => {
@@ -182,6 +183,16 @@ const Dashboard = () => {
             <p className="text-gray-700">
               {result.recommendation}
             </p>
+          </div>
+
+          <div className="mt-6 bg-white border rounded-2xl p-6">
+            <h3 className="text-xl font-bold mb-4 text-blue-600">
+              AI Business Insights
+            </h3>
+
+            <div className="whitespace-pre-wrap text-gray-700">
+              {result.ai_insights}
+            </div>
           </div>
 
         </div>
