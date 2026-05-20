@@ -26,18 +26,15 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Request schema
 class BusinessData(BaseModel):
     business_type: str
     location: str
     budget: float
     audience: str
 
-# API Route
 @app.post("/analyze")
 def analyze_business(data: BusinessData):
 
-    # Basic scoring logic
     score = 50
 
     if float(data.budget) > 50000:
@@ -69,14 +66,30 @@ def analyze_business(data: BusinessData):
     Budget: {data.budget}
     Target Audience: {data.audience}
 
-    Generate:
-    1. SWOT Analysis
-    2. Business Recommendation
-    3. Key Risks
-    4. Market Opportunity
+    Return response EXACTLY in this format:
 
-    Keep the response concise, professional, and structured.
+    Strengths:
+    - point
+    - point
+
+    Weaknesses:
+    - point
+    - point
+
+    Opportunities:
+    - point
+    - point
+
+    Threats:
+    - point
+    - point
+
+    Recommendation:
+    short recommendation
+
+    Keep response concise and professional.
     """
+
 
     # Generate AI response safely
     try:
