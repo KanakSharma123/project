@@ -5,3 +5,7 @@ class ProjectCreate(BaseModel):
     industry: str
     target_market: str
     business_model: str
+    market_size: str
+    competition_level: str
+    growth_rate: str
+    regulatory_risk: str

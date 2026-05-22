@@ -9,3 +9,7 @@ class Project(Base):
     industry = Column(String)
     target_market = Column(String)
     business_model = Column(String)
+    market_size = Column(String)
+    competition_level = Column(String)
+    growth_rate = Column(String)
+    regulatory_risk = Column(String)

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import DashboardLayout from "../layouts/DashboardLayout";
+import axios from "axios";
 
 function NewProject() {
 
@@ -12,7 +13,30 @@ function NewProject() {
     business_model: "",
     budget: "",
     goals: "",
+    market_size: "",
+    competition_level: "",
+    growth_rate: "",
+    regulatory_risk: "",
   });
+
+  const [marketScore, setMarketScore] = useState(null);
+  const handleSubmit = async () => {
+
+    try {
+
+      const response = await axios.post(
+        "http://127.0.0.1:8000/projects",
+        formData
+      );
+
+      setMarketScore(response.data.market_score);
+
+    } catch (error) {
+
+      console.error(error);
+
+    }
+  };
 
   return (
     <DashboardLayout>
@@ -119,6 +143,122 @@ function NewProject() {
               }
             />
 
+            <select
+              className="w-full border p-3 rounded-lg"
+              value={formData.market_size}
+              onChange={(e) =>
+                setFormData({
+                  ...formData,
+                  market_size: e.target.value,
+                })
+              }
+            >
+
+              <option value="">
+                Select Market Size
+              </option>
+
+              <option value="small">
+                Small
+              </option>
+
+              <option value="medium">
+                Medium
+              </option>
+
+              <option value="large">
+                Large
+              </option>
+
+            </select>
+
+            <select
+              className="w-full border p-3 rounded-lg"
+              value={formData.competition_level}
+              onChange={(e) =>
+                setFormData({
+                  ...formData,
+                  competition_level: e.target.value,
+                })
+              }
+            >
+
+              <option value="">
+                Competition Level
+              </option>
+
+              <option value="low">
+                Low
+              </option>
+
+              <option value="medium">
+                Medium
+              </option>
+
+              <option value="high">
+                High
+              </option>
+
+            </select>
+
+            <select
+              className="w-full border p-3 rounded-lg"
+              value={formData.growth_rate}
+              onChange={(e) =>
+                setFormData({
+                  ...formData,
+                  growth_rate: e.target.value,
+                })
+              }
+            >
+
+              <option value="">
+                Market Growth Rate
+              </option>
+
+              <option value="slow">
+                Slow
+              </option>
+
+              <option value="moderate">
+                Moderate
+              </option>
+
+              <option value="fast">
+                Fast
+              </option>
+
+            </select>
+
+            <select
+              className="w-full border p-3 rounded-lg"
+              value={formData.regulatory_risk}
+              onChange={(e) =>
+                setFormData({
+                  ...formData,
+                  regulatory_risk: e.target.value,
+                })
+              }
+            >
+
+              <option value="">
+                Regulatory Risk
+              </option>
+
+              <option value="low">
+                Low
+              </option>
+
+              <option value="medium">
+                Medium
+              </option>
+
+              <option value="high">
+                High
+              </option>
+
+            </select>
+
           </div>
         )}
 
@@ -195,6 +335,7 @@ function NewProject() {
             </button>
           ) : (
             <button
+              onClick={handleSubmit}
               className="bg-green-600 hover:bg-green-700 transition text-white px-5 py-2 rounded-lg"
             >
               Submit
@@ -202,6 +343,26 @@ function NewProject() {
           )}
 
         </div>
+
+        {marketScore !== null && (
+
+          <div className="mt-10 bg-blue-50 border border-blue-200 p-6 rounded-2xl">
+
+            <h2 className="text-2xl font-bold text-blue-700 mb-2">
+              Market Attractiveness Score
+            </h2>
+
+            <p className="text-5xl font-bold text-blue-900">
+              {marketScore}/100
+            </p>
+
+            <p className="text-gray-600 mt-2">
+              Higher scores indicate stronger market entry potential.
+            </p>
+
+          </div>
+
+        )}
 
       </div>
 
