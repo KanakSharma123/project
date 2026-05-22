@@ -1,5 +1,5 @@
 import SwotAnalysis from "../components/SwotAnalysis";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import RevenueChart from "../components/RevenueChart";
 
@@ -24,6 +24,29 @@ const Dashboard = () => {
     ai_insights: "",
   });
 
+  useEffect(() => {
+
+    fetchHistory();
+
+  }, []);
+
+  const fetchHistory = async () => {
+
+    try {
+
+      const response = await axios.get(
+        "http://127.0.0.1:8000/history"
+      );
+
+      setHistory(response.data.reverse());
+
+    } catch (error) {
+
+      console.log(error);
+
+    }
+  };
+
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -43,6 +66,7 @@ const Dashboard = () => {
       );
 
       setResult(response.data);
+      fetchHistory();
 
       setHistory((prev) => [
         response.data,
