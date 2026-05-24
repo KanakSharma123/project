@@ -13,3 +13,5 @@ class Project(Base):
     competition_level = Column(String)
     growth_rate = Column(String)
     regulatory_risk = Column(String)
+    market_score = Column(Integer)
+    ai_analysis = Column(String)

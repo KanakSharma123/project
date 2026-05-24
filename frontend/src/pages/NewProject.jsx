@@ -1,10 +1,12 @@
 import { useState } from "react";
 import DashboardLayout from "../layouts/DashboardLayout";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function NewProject() {
 
   const [step, setStep] = useState(1);
+  const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
     company_name: "",
@@ -20,7 +22,10 @@ function NewProject() {
   });
 
   const [marketScore, setMarketScore] = useState(null);
+  const [aiAnalysis, setAiAnalysis] = useState("");
   const handleSubmit = async () => {
+
+    console.log("Submitting form...");
 
     try {
 
@@ -29,10 +34,14 @@ function NewProject() {
         formData
       );
 
-      setMarketScore(response.data.market_score);
+      console.log("API RESPONSE:");
+      console.log(response.data);
+
+      navigate(`/analysis/${response.data.id}`);
 
     } catch (error) {
 
+      console.error("FULL ERROR:");
       console.error(error);
 
     }
@@ -343,26 +352,6 @@ function NewProject() {
           )}
 
         </div>
-
-        {marketScore !== null && (
-
-          <div className="mt-10 bg-blue-50 border border-blue-200 p-6 rounded-2xl">
-
-            <h2 className="text-2xl font-bold text-blue-700 mb-2">
-              Market Attractiveness Score
-            </h2>
-
-            <p className="text-5xl font-bold text-blue-900">
-              {marketScore}/100
-            </p>
-
-            <p className="text-gray-600 mt-2">
-              Higher scores indicate stronger market entry potential.
-            </p>
-
-          </div>
-
-        )}
 
       </div>
 
